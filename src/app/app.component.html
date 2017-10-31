@@ -1,18 +1,29 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300"
-       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some students</h2>
-<ul>
-  <li *ngFor="let student of students">
-    <a (click)="showStudent(student)">{{student.index}}</a>
-  </li>
-</ul>
+<div class="row1">
+  <div class="row">
+    <nav class="navbar navbar-light col-md-1">
+      <ul class="nav navbar-nav left-buffer">
+        <li *ngFor="let student of students" class="nav-item">
+          <a [routerLink]="['/details', student.index]"
+             class="nav-link"
+             [class.active]="currentStudent === student">
+            {{student.index}}
+          </a>
+        </li>
+      </ul>
+    </nav>
 
-<hr/>
-<app-student-details [student]="currentStudent"
-                   *ngIf="currentStudent!==undefined"></app-student-details>
+    <div class="col-md-9">
+      <!--    <app-student-details [student]="currentStudent"></app-student-details>
+
+          <app-student-edit [editingStudent]="currentStudent"></app-student-edit>-->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="row2">
+    <button class="btn btn-xl btn-primary col-md-2"
+            [routerLink]="['new']">
+      New
+    </button>
+  </div>
+</div>

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Student} from '../../model/student';
+import {STUDENTS} from './mock-students';
 
 @Injectable()
 export class StudentManagementService {
@@ -33,7 +34,42 @@ export class StudentManagementService {
     program: 'KNIA'
   }];
 
-  public latestStudents(): Student[] {
-    return this.students.slice(0, 4);
+
+  /*  getStudentsTest(): Student[] {
+   return STUDENTS;
+   }*/
+
+  public getStudents(): Promise<Student[]> {
+    return Promise.resolve(this.students);
+  }
+
+  getStudentsSlowly(): Promise<Student[]> {
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+      setTimeout(() => resolve(this.getStudents()), 2000);
+    });
+  }
+
+  addStudent(student: Student): Promise<Student> {
+    this.students.push(student);
+    return Promise.resolve(student);
+  }
+
+  editStudent(oldStudent: Student, updatedStudent: Student): Promise<Student> {
+    Object.assign(oldStudent, updatedStudent);
+
+    return Promise.resolve(updatedStudent);
+  }
+
+  findByIndex(index: number): Promise<Student> {
+    const result = this.students.filter(student => student.index === index);
+    if (result && result.length > 0) {
+      return Promise.resolve(result[0]);
+    } else {
+      return Promise.reject({
+        errorMessage: 'No student with the given index found',
+        errorCode: index
+      });
+    }
   }
 }

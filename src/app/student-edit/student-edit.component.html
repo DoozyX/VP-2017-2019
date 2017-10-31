@@ -1,0 +1,141 @@
+<div class="card top-buffer">
+  <div class="card-header">
+    Editing: {{ student | studentIndex }}
+  </div>
+<!--
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-8">
+
+        <div class="form-group row">
+          <label for="index"
+                 class="col-sm-2 col-form-label">
+            Index
+          </label>
+          <div class="col-sm-10">
+            <input id="index"
+                   type="text"
+                   required
+                   maxlength="50"
+                   minlength="5"
+                   class="form-control"
+                   [(ngModel)]="student.index"
+                   #index="ngModel"
+            />
+            <div *ngIf="index.invalid && (index.dirty || index.touched)"
+                 class="alert alert-danger">
+
+              <div *ngIf="index.errors.required">
+                Index is required.
+              </div>
+              <div *ngIf="index.errors.maxlength">
+                The minimum length of the index is 20.
+              </div>
+              <div *ngIf="index.errors.minlength">
+                The minimum length of the index is 5.
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <label for="name"
+                 class="col-sm-2 col-form-label">
+            Name
+          </label>
+          <div class="col-sm-10">
+            <input id="name"
+                   type="text"
+                   required
+                   class="form-control"
+                   [(ngModel)]="student.name"
+                   #name="ngModel"
+            />
+            <div class="">
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                   class="alert alert-danger">
+
+                <div *ngIf="name.errors.required">
+                  Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group row">
+          <label for="surname"
+                 class="col-sm-2 col-form-label">
+            Surname
+          </label>
+          <div class="col-sm-10">
+            <input id="surname"
+                   type="text"
+                   required
+                   class="form-control"
+                   [(ngModel)]="student.surname"
+                   #surname="ngModel"
+            />
+            <div class="">
+              <div *ngIf="surname.invalid && (surname.dirty || surname.touched)"
+                   class="alert alert-danger">
+
+                <div *ngIf="surname.errors.required">
+                  Surname is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+
+          <button class="btn btn-xs btn-success"
+                  [disabled]="index.invalid"
+                  (click)="save1()">
+            Create
+          </button>
+
+          <button class="btn btn-xs btn-primary"
+                  (click)="edit()">
+            Edit
+          </button>
+
+          <button class="btn btn-xs btn-default"
+            [routerLink]="['/details', student.index]">
+            Cancel
+          </button>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>-->
+
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" novalidate>
+    <label class="center-block">Index:
+      <input class="form-control" formControlName="index">
+    </label>
+    <label class="center-block">Name:
+      <input class="form-control" formControlName="name">
+    </label>
+    <label class="center-block">Surname:
+      <input class="form-control" formControlName="surname">
+    </label>
+    <label class="center-block">Program:
+      <input class="form-control" formControlName="program">
+    </label>
+
+    <button type="submit"
+            [disabled]="studentForm.pristine" class="btn btn-success">Save</button>
+
+    <button type="submit" (click)="edit()"
+            [disabled]="studentForm.pristine" class="btn btn-success">Update</button>
+
+    <button type="submit" (click)="edit()"
+            [disabled]="studentForm.pristine" class="btn btn-success">Cancel</button>
+  </form>
+</div>

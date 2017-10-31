@@ -16,8 +16,12 @@ export class AppComponent implements OnInit {
   constructor(private studentService: StudentManagementService) {
   }
 
+  getStudents(): void {
+    this.studentService.getStudents().then(students => this.students = students)
+  }
+
   ngOnInit(): void {
-    this.students = this.studentService.latestStudents();
+    this.getStudents();
   }
 
   showStudent(student: Student) {
